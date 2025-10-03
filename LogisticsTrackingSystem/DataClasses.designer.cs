@@ -822,9 +822,9 @@ namespace LogisticsTrackingSystem
 		
 		private string _note;
 		
-		private System.Data.Linq.Binary _timestamp;
+		private System.Nullable<System.DateTime> _timestamp;
 		
-		private int _parcel_id;
+		private string _parcel_id;
 		
 		private int _driver_id;
 		
@@ -844,9 +844,9 @@ namespace LogisticsTrackingSystem
     partial void OnlocationChanged();
     partial void OnnoteChanging(string value);
     partial void OnnoteChanged();
-    partial void OntimestampChanging(System.Data.Linq.Binary value);
+    partial void OntimestampChanging(System.Nullable<System.DateTime> value);
     partial void OntimestampChanged();
-    partial void Onparcel_idChanging(int value);
+    partial void Onparcel_idChanging(string value);
     partial void Onparcel_idChanged();
     partial void Ondriver_idChanging(int value);
     partial void Ondriver_idChanged();
@@ -859,7 +859,7 @@ namespace LogisticsTrackingSystem
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int id
 		{
 			get
@@ -879,7 +879,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(20) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
 		public string status
 		{
 			get
@@ -899,7 +899,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_location", DbType="VarChar(255)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_location", DbType="VarChar(255)")]
 		public string location
 		{
 			get
@@ -919,7 +919,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_note", DbType="VarChar(MAX)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_note", DbType="VarChar(MAX)")]
 		public string note
 		{
 			get
@@ -939,8 +939,8 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timestamp", AutoSync=AutoSync.Always, DbType="rowversion NOT NULL", CanBeNull=false, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary timestamp
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timestamp", DbType="DateTime")]
+		public System.Nullable<System.DateTime> timestamp
 		{
 			get
 			{
@@ -959,8 +959,8 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_parcel_id", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
-		public int parcel_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_parcel_id", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string parcel_id
 		{
 			get
 			{
@@ -983,7 +983,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_driver_id", DbType="Int NOT NULL", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_driver_id", DbType="Int NOT NULL")]
 		public int driver_id
 		{
 			get
@@ -1041,7 +1041,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_log", Storage="_parcel", ThisKey="parcel_id", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_log", Storage="_parcel", ThisKey="parcel_id", OtherKey="tracking_no", IsForeignKey=true)]
 		public parcel parcel
 		{
 			get
@@ -1064,11 +1064,11 @@ namespace LogisticsTrackingSystem
 					if ((value != null))
 					{
 						value.parcel_logs.Add(this);
-						this._parcel_id = value.id;
+						this._parcel_id = value.tracking_no;
 					}
 					else
 					{
-						this._parcel_id = default(int);
+						this._parcel_id = default(string);
 					}
 					this.SendPropertyChanged("parcel");
 				}
@@ -1102,7 +1102,7 @@ namespace LogisticsTrackingSystem
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _parcel_id;
+		private string _parcel_id;
 		
 		private int _route_id;
 		
@@ -1114,7 +1114,7 @@ namespace LogisticsTrackingSystem
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void Onparcel_idChanging(int value);
+    partial void Onparcel_idChanging(string value);
     partial void Onparcel_idChanged();
     partial void Onroute_idChanging(int value);
     partial void Onroute_idChanged();
@@ -1127,8 +1127,8 @@ namespace LogisticsTrackingSystem
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_parcel_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int parcel_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_parcel_id", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string parcel_id
 		{
 			get
 			{
@@ -1175,7 +1175,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_route", Storage="_parcel", ThisKey="parcel_id", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_route", Storage="_parcel", ThisKey="parcel_id", OtherKey="tracking_no", IsForeignKey=true)]
 		public parcel parcel
 		{
 			get
@@ -1198,11 +1198,11 @@ namespace LogisticsTrackingSystem
 					if ((value != null))
 					{
 						value.parcel_routes.Add(this);
-						this._parcel_id = value.id;
+						this._parcel_id = value.tracking_no;
 					}
 					else
 					{
-						this._parcel_id = default(int);
+						this._parcel_id = default(string);
 					}
 					this.SendPropertyChanged("parcel");
 				}
@@ -1270,13 +1270,13 @@ namespace LogisticsTrackingSystem
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _id;
-		
 		private string _tracking_no;
 		
 		private decimal _weight;
 		
 		private string _status;
+		
+		private string _type;
 		
 		private System.Nullable<System.DateTime> _created_at;
 		
@@ -1304,14 +1304,14 @@ namespace LogisticsTrackingSystem
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
     partial void Ontracking_noChanging(string value);
     partial void Ontracking_noChanged();
     partial void OnweightChanging(decimal value);
     partial void OnweightChanged();
     partial void OnstatusChanging(string value);
     partial void OnstatusChanged();
+    partial void OntypeChanging(string value);
+    partial void OntypeChanged();
     partial void Oncreated_atChanging(System.Nullable<System.DateTime> value);
     partial void Oncreated_atChanged();
     partial void Onsender_idChanging(int value);
@@ -1335,27 +1335,7 @@ namespace LogisticsTrackingSystem
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tracking_no", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tracking_no", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string tracking_no
 		{
 			get
@@ -1411,6 +1391,26 @@ namespace LogisticsTrackingSystem
 					this._status = value;
 					this.SendPropertyChanged("status");
 					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string type
+		{
+			get
+			{
+				return this._type;
+			}
+			set
+			{
+				if ((this._type != value))
+				{
+					this.OntypeChanging(value);
+					this.SendPropertyChanging();
+					this._type = value;
+					this.SendPropertyChanged("type");
+					this.OntypeChanged();
 				}
 			}
 		}
@@ -1531,7 +1531,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_log", Storage="_parcel_logs", ThisKey="id", OtherKey="parcel_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_log", Storage="_parcel_logs", ThisKey="tracking_no", OtherKey="parcel_id")]
 		public EntitySet<parcel_log> parcel_logs
 		{
 			get
@@ -1544,7 +1544,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_route", Storage="_parcel_routes", ThisKey="id", OtherKey="parcel_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_route", Storage="_parcel_routes", ThisKey="tracking_no", OtherKey="parcel_id")]
 		public EntitySet<parcel_route> parcel_routes
 		{
 			get
@@ -1748,7 +1748,7 @@ namespace LogisticsTrackingSystem
 		
 		private System.Nullable<decimal> _distance;
 		
-		private System.Nullable<System.DateTime> _estimated_time;
+		private System.Nullable<int> _estimated_time;
 		
 		private int _origin_id;
 		
@@ -1774,7 +1774,7 @@ namespace LogisticsTrackingSystem
     partial void OnidChanged();
     partial void OndistanceChanging(System.Nullable<decimal> value);
     partial void OndistanceChanged();
-    partial void Onestimated_timeChanging(System.Nullable<System.DateTime> value);
+    partial void Onestimated_timeChanging(System.Nullable<int> value);
     partial void Onestimated_timeChanged();
     partial void Onorigin_idChanging(int value);
     partial void Onorigin_idChanged();
@@ -1835,8 +1835,8 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estimated_time", DbType="DateTime")]
-		public System.Nullable<System.DateTime> estimated_time
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estimated_time", DbType="Int")]
+		public System.Nullable<int> estimated_time
 		{
 			get
 			{

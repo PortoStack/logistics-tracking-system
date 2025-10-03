@@ -39,34 +39,34 @@
       <Column Name="status" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="location" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="note" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="timestamp" Type="System.Data.Linq.Binary" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Column Name="parcel_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="timestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="parcel_id" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="driver_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="driver_parcel_log" Member="driver" ThisKey="driver_id" OtherKey="id" Type="driver" IsForeignKey="true" />
-      <Association Name="parcel_parcel_log" Member="parcel" ThisKey="parcel_id" OtherKey="id" Type="parcel" IsForeignKey="true" />
+      <Association Name="parcel_parcel_log" Member="parcel" ThisKey="parcel_id" OtherKey="tracking_no" Type="parcel" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.parcel_routes" Member="parcel_routes">
     <Type Name="parcel_route">
-      <Column Name="parcel_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="parcel_id" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="route_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="parcel_parcel_route" Member="parcel" ThisKey="parcel_id" OtherKey="id" Type="parcel" IsForeignKey="true" />
+      <Association Name="parcel_parcel_route" Member="parcel" ThisKey="parcel_id" OtherKey="tracking_no" Type="parcel" IsForeignKey="true" />
       <Association Name="route_parcel_route" Member="route" ThisKey="route_id" OtherKey="id" Type="route" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.parcels" Member="parcels">
     <Type Name="parcel">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="tracking_no" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="tracking_no" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="weight" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
       <Column Name="status" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="type" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="created_at" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="sender_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="receiver_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="origin_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="destination_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="parcel_parcel_log" Member="parcel_logs" ThisKey="id" OtherKey="parcel_id" Type="parcel_log" />
-      <Association Name="parcel_parcel_route" Member="parcel_routes" ThisKey="id" OtherKey="parcel_id" Type="parcel_route" />
+      <Association Name="parcel_parcel_log" Member="parcel_logs" ThisKey="tracking_no" OtherKey="parcel_id" Type="parcel_log" />
+      <Association Name="parcel_parcel_route" Member="parcel_routes" ThisKey="tracking_no" OtherKey="parcel_id" Type="parcel_route" />
       <Association Name="warehouse_parcel" Member="warehouse" ThisKey="destination_id" OtherKey="id" Type="warehouse" IsForeignKey="true" />
       <Association Name="warehouse_parcel1" Member="warehouse1" ThisKey="origin_id" OtherKey="id" Type="warehouse" IsForeignKey="true" />
       <Association Name="customer_parcel" Member="customer" ThisKey="receiver_id" OtherKey="id" Type="customer" IsForeignKey="true" />
@@ -77,7 +77,7 @@
     <Type Name="route">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="distance" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="estimated_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="estimated_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="origin_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="destination_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="driver_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
