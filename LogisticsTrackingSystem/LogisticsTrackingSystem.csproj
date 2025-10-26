@@ -44,11 +44,45 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.10\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.IO.Pipelines, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.9.0.10\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.9.0.10\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=9.0.0.10, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.9.0.10\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -73,8 +107,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\loadParcel.js" />
-    <Content Include="Services\dbService.svc" />
-    <Content Include="Views\parcel.html" />
+    <Content Include="Public\css\admin-style.css" />
+    <Content Include="Services\DbService.svc" />
+    <Content Include="Public\assets\Logo01_Box.png" />
+    <Content Include="Public\assets\Logo02_Van.png" />
+    <Content Include="Public\assets\Logo03_Check.png" />
+    <Content Include="Public\assets\Report_icon_01.png" />
+    <Content Include="Public\assets\Report_icon_02.png" />
+    <Content Include="Public\css\tracking-style.css" />
+    <Content Include="Views\admin\dashboard.html" />
+    <Content Include="Views\parcel\add.html" />
+    <Content Include="Views\parcel\index.html" />
+    <Content Include="Views\tracking.html" />
+    <Content Include="Scripts\tracking-script.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -83,14 +128,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\LocationModel.cs" />
+    <Compile Include="Models\ParcelLogModel.cs" />
     <Compile Include="Models\ParcelModel.cs" />
-    <Compile Include="Services\CustomerService.cs" />
-    <Compile Include="Services\dbService.svc.cs">
-      <DependentUpon>dbService.svc</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\IdbService.cs" />
+    <Compile Include="Models\ParcelRouteModel.cs" />
+    <Compile Include="Models\RouteModel.cs" />
+    <Compile Include="Models\VehicleModel.cs" />
+    <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\IDbService.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\DbService.svc.cs">
+      <DependentUpon>DbService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\LocationService.cs" />
+    <Compile Include="Services\ParcelLogService.cs" />
     <Compile Include="Services\ParcelService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +167,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

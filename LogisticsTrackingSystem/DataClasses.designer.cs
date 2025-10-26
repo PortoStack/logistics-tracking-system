@@ -33,12 +33,15 @@ namespace LogisticsTrackingSystem
     partial void Insertcustomer(customer instance);
     partial void Updatecustomer(customer instance);
     partial void Deletecustomer(customer instance);
-    partial void Insertwarehouse(warehouse instance);
-    partial void Updatewarehouse(warehouse instance);
-    partial void Deletewarehouse(warehouse instance);
-    partial void Insertdriver(driver instance);
-    partial void Updatedriver(driver instance);
-    partial void Deletedriver(driver instance);
+    partial void Insertvehicle(vehicle instance);
+    partial void Updatevehicle(vehicle instance);
+    partial void Deletevehicle(vehicle instance);
+    partial void Insertemployee(employee instance);
+    partial void Updateemployee(employee instance);
+    partial void Deleteemployee(employee instance);
+    partial void Insertlocation(location instance);
+    partial void Updatelocation(location instance);
+    partial void Deletelocation(location instance);
     partial void Insertparcel_log(parcel_log instance);
     partial void Updateparcel_log(parcel_log instance);
     partial void Deleteparcel_log(parcel_log instance);
@@ -85,19 +88,27 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		public System.Data.Linq.Table<warehouse> warehouses
+		public System.Data.Linq.Table<vehicle> vehicles
 		{
 			get
 			{
-				return this.GetTable<warehouse>();
+				return this.GetTable<vehicle>();
 			}
 		}
 		
-		public System.Data.Linq.Table<driver> drivers
+		public System.Data.Linq.Table<employee> employees
 		{
 			get
 			{
-				return this.GetTable<driver>();
+				return this.GetTable<employee>();
+			}
+		}
+		
+		public System.Data.Linq.Table<location> locations
+		{
+			get
+			{
+				return this.GetTable<location>();
 			}
 		}
 		
@@ -148,8 +159,6 @@ namespace LogisticsTrackingSystem
 		
 		private string _phone;
 		
-		private string _type;
-		
 		private EntitySet<parcel> _parcels;
 		
 		private EntitySet<parcel> _parcels1;
@@ -166,8 +175,6 @@ namespace LogisticsTrackingSystem
     partial void OnemailChanged();
     partial void OnphoneChanging(string value);
     partial void OnphoneChanged();
-    partial void OntypeChanging(string value);
-    partial void OntypeChanged();
     #endregion
 		
 		public customer()
@@ -197,7 +204,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
 		public string name
 		{
 			get
@@ -253,26 +260,6 @@ namespace LogisticsTrackingSystem
 					this._phone = value;
 					this.SendPropertyChanged("phone");
 					this.OnphoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string type
-		{
-			get
-			{
-				return this._type;
-			}
-			set
-			{
-				if ((this._type != value))
-				{
-					this.OntypeChanging(value);
-					this.SendPropertyChanging();
-					this._type = value;
-					this.SendPropertyChanged("type");
-					this.OntypeChanged();
 				}
 			}
 		}
@@ -348,8 +335,497 @@ namespace LogisticsTrackingSystem
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.warehouses")]
-	public partial class warehouse : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vehicles")]
+	public partial class vehicle : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _capacity;
+		
+		private string _license_plate;
+		
+		private string _status;
+		
+		private System.Nullable<System.DateTime> _created_at;
+		
+		private System.Nullable<int> _driver_id;
+		
+		private EntitySet<route> _routes;
+		
+		private EntityRef<employee> _employee;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OncapacityChanging(int value);
+    partial void OncapacityChanged();
+    partial void Onlicense_plateChanging(string value);
+    partial void Onlicense_plateChanged();
+    partial void OnstatusChanging(string value);
+    partial void OnstatusChanged();
+    partial void Oncreated_atChanging(System.Nullable<System.DateTime> value);
+    partial void Oncreated_atChanged();
+    partial void Ondriver_idChanging(System.Nullable<int> value);
+    partial void Ondriver_idChanged();
+    #endregion
+		
+		public vehicle()
+		{
+			this._routes = new EntitySet<route>(new Action<route>(this.attach_routes), new Action<route>(this.detach_routes));
+			this._employee = default(EntityRef<employee>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_capacity", DbType="Int NOT NULL")]
+		public int capacity
+		{
+			get
+			{
+				return this._capacity;
+			}
+			set
+			{
+				if ((this._capacity != value))
+				{
+					this.OncapacityChanging(value);
+					this.SendPropertyChanging();
+					this._capacity = value;
+					this.SendPropertyChanged("capacity");
+					this.OncapacityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_license_plate", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string license_plate
+		{
+			get
+			{
+				return this._license_plate;
+			}
+			set
+			{
+				if ((this._license_plate != value))
+				{
+					this.Onlicense_plateChanging(value);
+					this.SendPropertyChanging();
+					this._license_plate = value;
+					this.SendPropertyChanged("license_plate");
+					this.Onlicense_plateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_at", DbType="DateTime")]
+		public System.Nullable<System.DateTime> created_at
+		{
+			get
+			{
+				return this._created_at;
+			}
+			set
+			{
+				if ((this._created_at != value))
+				{
+					this.Oncreated_atChanging(value);
+					this.SendPropertyChanging();
+					this._created_at = value;
+					this.SendPropertyChanged("created_at");
+					this.Oncreated_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_driver_id", DbType="Int")]
+		public System.Nullable<int> driver_id
+		{
+			get
+			{
+				return this._driver_id;
+			}
+			set
+			{
+				if ((this._driver_id != value))
+				{
+					if (this._employee.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Ondriver_idChanging(value);
+					this.SendPropertyChanging();
+					this._driver_id = value;
+					this.SendPropertyChanged("driver_id");
+					this.Ondriver_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="vehicle_route", Storage="_routes", ThisKey="id", OtherKey="vehicle_id")]
+		public EntitySet<route> routes
+		{
+			get
+			{
+				return this._routes;
+			}
+			set
+			{
+				this._routes.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="employee_vehicle", Storage="_employee", ThisKey="driver_id", OtherKey="id", IsForeignKey=true)]
+		public employee employee
+		{
+			get
+			{
+				return this._employee.Entity;
+			}
+			set
+			{
+				employee previousValue = this._employee.Entity;
+				if (((previousValue != value) 
+							|| (this._employee.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._employee.Entity = null;
+						previousValue.vehicles.Remove(this);
+					}
+					this._employee.Entity = value;
+					if ((value != null))
+					{
+						value.vehicles.Add(this);
+						this._driver_id = value.id;
+					}
+					else
+					{
+						this._driver_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("employee");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_routes(route entity)
+		{
+			this.SendPropertyChanging();
+			entity.vehicle = this;
+		}
+		
+		private void detach_routes(route entity)
+		{
+			this.SendPropertyChanging();
+			entity.vehicle = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.employees")]
+	public partial class employee : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+		private string _email;
+		
+		private string _password;
+		
+		private string _phone;
+		
+		private string _role;
+		
+		private EntitySet<vehicle> _vehicles;
+		
+		private EntitySet<parcel_log> _parcel_logs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnemailChanging(string value);
+    partial void OnemailChanged();
+    partial void OnpasswordChanging(string value);
+    partial void OnpasswordChanged();
+    partial void OnphoneChanging(string value);
+    partial void OnphoneChanged();
+    partial void OnroleChanging(string value);
+    partial void OnroleChanged();
+    #endregion
+		
+		public employee()
+		{
+			this._vehicles = new EntitySet<vehicle>(new Action<vehicle>(this.attach_vehicles), new Action<vehicle>(this.detach_vehicles));
+			this._parcel_logs = new EntitySet<parcel_log>(new Action<parcel_log>(this.attach_parcel_logs), new Action<parcel_log>(this.detach_parcel_logs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string email
+		{
+			get
+			{
+				return this._email;
+			}
+			set
+			{
+				if ((this._email != value))
+				{
+					this.OnemailChanging(value);
+					this.SendPropertyChanging();
+					this._email = value;
+					this.SendPropertyChanged("email");
+					this.OnemailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string password
+		{
+			get
+			{
+				return this._password;
+			}
+			set
+			{
+				if ((this._password != value))
+				{
+					this.OnpasswordChanging(value);
+					this.SendPropertyChanging();
+					this._password = value;
+					this.SendPropertyChanged("password");
+					this.OnpasswordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string phone
+		{
+			get
+			{
+				return this._phone;
+			}
+			set
+			{
+				if ((this._phone != value))
+				{
+					this.OnphoneChanging(value);
+					this.SendPropertyChanging();
+					this._phone = value;
+					this.SendPropertyChanged("phone");
+					this.OnphoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_role", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string role
+		{
+			get
+			{
+				return this._role;
+			}
+			set
+			{
+				if ((this._role != value))
+				{
+					this.OnroleChanging(value);
+					this.SendPropertyChanging();
+					this._role = value;
+					this.SendPropertyChanged("role");
+					this.OnroleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="employee_vehicle", Storage="_vehicles", ThisKey="id", OtherKey="driver_id")]
+		public EntitySet<vehicle> vehicles
+		{
+			get
+			{
+				return this._vehicles;
+			}
+			set
+			{
+				this._vehicles.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="employee_parcel_log", Storage="_parcel_logs", ThisKey="id", OtherKey="employee_id")]
+		public EntitySet<parcel_log> parcel_logs
+		{
+			get
+			{
+				return this._parcel_logs;
+			}
+			set
+			{
+				this._parcel_logs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_vehicles(vehicle entity)
+		{
+			this.SendPropertyChanging();
+			entity.employee = this;
+		}
+		
+		private void detach_vehicles(vehicle entity)
+		{
+			this.SendPropertyChanging();
+			entity.employee = null;
+		}
+		
+		private void attach_parcel_logs(parcel_log entity)
+		{
+			this.SendPropertyChanging();
+			entity.employee = this;
+		}
+		
+		private void detach_parcel_logs(parcel_log entity)
+		{
+			this.SendPropertyChanging();
+			entity.employee = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.locations")]
+	public partial class location : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -360,7 +836,11 @@ namespace LogisticsTrackingSystem
 		
 		private string _contact;
 		
-		private string _location;
+		private string _address;
+		
+		private string _type;
+		
+		private EntitySet<parcel_log> _parcel_logs;
 		
 		private EntitySet<parcel> _parcels;
 		
@@ -380,12 +860,15 @@ namespace LogisticsTrackingSystem
     partial void OnnameChanged();
     partial void OncontactChanging(string value);
     partial void OncontactChanged();
-    partial void OnlocationChanging(string value);
-    partial void OnlocationChanged();
+    partial void OnaddressChanging(string value);
+    partial void OnaddressChanged();
+    partial void OntypeChanging(string value);
+    partial void OntypeChanged();
     #endregion
 		
-		public warehouse()
+		public location()
 		{
+			this._parcel_logs = new EntitySet<parcel_log>(new Action<parcel_log>(this.attach_parcel_logs), new Action<parcel_log>(this.detach_parcel_logs));
 			this._parcels = new EntitySet<parcel>(new Action<parcel>(this.attach_parcels), new Action<parcel>(this.detach_parcels));
 			this._parcels1 = new EntitySet<parcel>(new Action<parcel>(this.attach_parcels1), new Action<parcel>(this.detach_parcels1));
 			this._routes = new EntitySet<route>(new Action<route>(this.attach_routes), new Action<route>(this.detach_routes));
@@ -453,27 +936,60 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_location", DbType="VarChar(MAX)")]
-		public string location
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_address", DbType="VarChar(MAX)")]
+		public string address
 		{
 			get
 			{
-				return this._location;
+				return this._address;
 			}
 			set
 			{
-				if ((this._location != value))
+				if ((this._address != value))
 				{
-					this.OnlocationChanging(value);
+					this.OnaddressChanging(value);
 					this.SendPropertyChanging();
-					this._location = value;
-					this.SendPropertyChanged("location");
-					this.OnlocationChanged();
+					this._address = value;
+					this.SendPropertyChanged("address");
+					this.OnaddressChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="warehouse_parcel", Storage="_parcels", ThisKey="id", OtherKey="destination_id")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string type
+		{
+			get
+			{
+				return this._type;
+			}
+			set
+			{
+				if ((this._type != value))
+				{
+					this.OntypeChanging(value);
+					this.SendPropertyChanging();
+					this._type = value;
+					this.SendPropertyChanged("type");
+					this.OntypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="location_parcel_log", Storage="_parcel_logs", ThisKey="id", OtherKey="location_id")]
+		public EntitySet<parcel_log> parcel_logs
+		{
+			get
+			{
+				return this._parcel_logs;
+			}
+			set
+			{
+				this._parcel_logs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="location_parcel", Storage="_parcels", ThisKey="id", OtherKey="destination_id")]
 		public EntitySet<parcel> parcels
 		{
 			get
@@ -486,7 +1002,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="warehouse_parcel1", Storage="_parcels1", ThisKey="id", OtherKey="origin_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="location_parcel1", Storage="_parcels1", ThisKey="id", OtherKey="origin_id")]
 		public EntitySet<parcel> parcels1
 		{
 			get
@@ -499,7 +1015,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="warehouse_route", Storage="_routes", ThisKey="id", OtherKey="destination_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="location_route", Storage="_routes", ThisKey="id", OtherKey="destination_id")]
 		public EntitySet<route> routes
 		{
 			get
@@ -512,7 +1028,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="warehouse_route1", Storage="_routes1", ThisKey="id", OtherKey="origin_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="location_route1", Storage="_routes1", ThisKey="id", OtherKey="origin_id")]
 		public EntitySet<route> routes1
 		{
 			get
@@ -545,266 +1061,64 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		private void attach_parcels(parcel entity)
-		{
-			this.SendPropertyChanging();
-			entity.warehouse = this;
-		}
-		
-		private void detach_parcels(parcel entity)
-		{
-			this.SendPropertyChanging();
-			entity.warehouse = null;
-		}
-		
-		private void attach_parcels1(parcel entity)
-		{
-			this.SendPropertyChanging();
-			entity.warehouse1 = this;
-		}
-		
-		private void detach_parcels1(parcel entity)
-		{
-			this.SendPropertyChanging();
-			entity.warehouse1 = null;
-		}
-		
-		private void attach_routes(route entity)
-		{
-			this.SendPropertyChanging();
-			entity.warehouse = this;
-		}
-		
-		private void detach_routes(route entity)
-		{
-			this.SendPropertyChanging();
-			entity.warehouse = null;
-		}
-		
-		private void attach_routes1(route entity)
-		{
-			this.SendPropertyChanging();
-			entity.warehouse1 = this;
-		}
-		
-		private void detach_routes1(route entity)
-		{
-			this.SendPropertyChanging();
-			entity.warehouse1 = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.drivers")]
-	public partial class driver : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-		private string _phone;
-		
-		private int _capacity;
-		
-		private string _license_plate;
-		
-		private EntitySet<parcel_log> _parcel_logs;
-		
-		private EntitySet<route> _routes;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnphoneChanging(string value);
-    partial void OnphoneChanged();
-    partial void OncapacityChanging(int value);
-    partial void OncapacityChanged();
-    partial void Onlicense_plateChanging(string value);
-    partial void Onlicense_plateChanged();
-    #endregion
-		
-		public driver()
-		{
-			this._parcel_logs = new EntitySet<parcel_log>(new Action<parcel_log>(this.attach_parcel_logs), new Action<parcel_log>(this.detach_parcel_logs));
-			this._routes = new EntitySet<route>(new Action<route>(this.attach_routes), new Action<route>(this.detach_routes));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string phone
-		{
-			get
-			{
-				return this._phone;
-			}
-			set
-			{
-				if ((this._phone != value))
-				{
-					this.OnphoneChanging(value);
-					this.SendPropertyChanging();
-					this._phone = value;
-					this.SendPropertyChanged("phone");
-					this.OnphoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_capacity", DbType="Int NOT NULL")]
-		public int capacity
-		{
-			get
-			{
-				return this._capacity;
-			}
-			set
-			{
-				if ((this._capacity != value))
-				{
-					this.OncapacityChanging(value);
-					this.SendPropertyChanging();
-					this._capacity = value;
-					this.SendPropertyChanged("capacity");
-					this.OncapacityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_license_plate", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string license_plate
-		{
-			get
-			{
-				return this._license_plate;
-			}
-			set
-			{
-				if ((this._license_plate != value))
-				{
-					this.Onlicense_plateChanging(value);
-					this.SendPropertyChanging();
-					this._license_plate = value;
-					this.SendPropertyChanged("license_plate");
-					this.Onlicense_plateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="driver_parcel_log", Storage="_parcel_logs", ThisKey="id", OtherKey="driver_id")]
-		public EntitySet<parcel_log> parcel_logs
-		{
-			get
-			{
-				return this._parcel_logs;
-			}
-			set
-			{
-				this._parcel_logs.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="driver_route", Storage="_routes", ThisKey="id", OtherKey="driver_id")]
-		public EntitySet<route> routes
-		{
-			get
-			{
-				return this._routes;
-			}
-			set
-			{
-				this._routes.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
 		private void attach_parcel_logs(parcel_log entity)
 		{
 			this.SendPropertyChanging();
-			entity.driver = this;
+			entity.location = this;
 		}
 		
 		private void detach_parcel_logs(parcel_log entity)
 		{
 			this.SendPropertyChanging();
-			entity.driver = null;
+			entity.location = null;
+		}
+		
+		private void attach_parcels(parcel entity)
+		{
+			this.SendPropertyChanging();
+			entity.location = this;
+		}
+		
+		private void detach_parcels(parcel entity)
+		{
+			this.SendPropertyChanging();
+			entity.location = null;
+		}
+		
+		private void attach_parcels1(parcel entity)
+		{
+			this.SendPropertyChanging();
+			entity.location1 = this;
+		}
+		
+		private void detach_parcels1(parcel entity)
+		{
+			this.SendPropertyChanging();
+			entity.location1 = null;
 		}
 		
 		private void attach_routes(route entity)
 		{
 			this.SendPropertyChanging();
-			entity.driver = this;
+			entity.location = this;
 		}
 		
 		private void detach_routes(route entity)
 		{
 			this.SendPropertyChanging();
-			entity.driver = null;
+			entity.location = null;
+		}
+		
+		private void attach_routes1(route entity)
+		{
+			this.SendPropertyChanging();
+			entity.location1 = this;
+		}
+		
+		private void detach_routes1(route entity)
+		{
+			this.SendPropertyChanging();
+			entity.location1 = null;
 		}
 	}
 	
@@ -818,19 +1132,25 @@ namespace LogisticsTrackingSystem
 		
 		private string _status;
 		
-		private string _location;
-		
 		private string _note;
 		
 		private System.Nullable<System.DateTime> _timestamp;
 		
 		private string _parcel_id;
 		
-		private int _driver_id;
+		private System.Nullable<int> _employee_id;
 		
-		private EntityRef<driver> _driver;
+		private System.Nullable<int> _location_id;
+		
+		private int _route_id;
+		
+		private EntityRef<employee> _employee;
+		
+		private EntityRef<location> _location;
 		
 		private EntityRef<parcel> _parcel;
+		
+		private EntityRef<route> _route;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -840,22 +1160,26 @@ namespace LogisticsTrackingSystem
     partial void OnidChanged();
     partial void OnstatusChanging(string value);
     partial void OnstatusChanged();
-    partial void OnlocationChanging(string value);
-    partial void OnlocationChanged();
     partial void OnnoteChanging(string value);
     partial void OnnoteChanged();
     partial void OntimestampChanging(System.Nullable<System.DateTime> value);
     partial void OntimestampChanged();
     partial void Onparcel_idChanging(string value);
     partial void Onparcel_idChanged();
-    partial void Ondriver_idChanging(int value);
-    partial void Ondriver_idChanged();
+    partial void Onemployee_idChanging(System.Nullable<int> value);
+    partial void Onemployee_idChanged();
+    partial void Onlocation_idChanging(System.Nullable<int> value);
+    partial void Onlocation_idChanged();
+    partial void Onroute_idChanging(int value);
+    partial void Onroute_idChanged();
     #endregion
 		
 		public parcel_log()
 		{
-			this._driver = default(EntityRef<driver>);
+			this._employee = default(EntityRef<employee>);
+			this._location = default(EntityRef<location>);
 			this._parcel = default(EntityRef<parcel>);
+			this._route = default(EntityRef<route>);
 			OnCreated();
 		}
 		
@@ -895,26 +1219,6 @@ namespace LogisticsTrackingSystem
 					this._status = value;
 					this.SendPropertyChanged("status");
 					this.OnstatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_location", DbType="VarChar(255)")]
-		public string location
-		{
-			get
-			{
-				return this._location;
-			}
-			set
-			{
-				if ((this._location != value))
-				{
-					this.OnlocationChanging(value);
-					this.SendPropertyChanging();
-					this._location = value;
-					this.SendPropertyChanged("location");
-					this.OnlocationChanged();
 				}
 			}
 		}
@@ -983,65 +1287,147 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_driver_id", DbType="Int NOT NULL")]
-		public int driver_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_employee_id", DbType="Int")]
+		public System.Nullable<int> employee_id
 		{
 			get
 			{
-				return this._driver_id;
+				return this._employee_id;
 			}
 			set
 			{
-				if ((this._driver_id != value))
+				if ((this._employee_id != value))
 				{
-					if (this._driver.HasLoadedOrAssignedValue)
+					if (this._employee.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.Ondriver_idChanging(value);
+					this.Onemployee_idChanging(value);
 					this.SendPropertyChanging();
-					this._driver_id = value;
-					this.SendPropertyChanged("driver_id");
-					this.Ondriver_idChanged();
+					this._employee_id = value;
+					this.SendPropertyChanged("employee_id");
+					this.Onemployee_idChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="driver_parcel_log", Storage="_driver", ThisKey="driver_id", OtherKey="id", IsForeignKey=true)]
-		public driver driver
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_location_id", DbType="Int")]
+		public System.Nullable<int> location_id
 		{
 			get
 			{
-				return this._driver.Entity;
+				return this._location_id;
 			}
 			set
 			{
-				driver previousValue = this._driver.Entity;
+				if ((this._location_id != value))
+				{
+					if (this._location.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onlocation_idChanging(value);
+					this.SendPropertyChanging();
+					this._location_id = value;
+					this.SendPropertyChanged("location_id");
+					this.Onlocation_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_route_id", DbType="Int NOT NULL")]
+		public int route_id
+		{
+			get
+			{
+				return this._route_id;
+			}
+			set
+			{
+				if ((this._route_id != value))
+				{
+					if (this._route.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onroute_idChanging(value);
+					this.SendPropertyChanging();
+					this._route_id = value;
+					this.SendPropertyChanged("route_id");
+					this.Onroute_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="employee_parcel_log", Storage="_employee", ThisKey="employee_id", OtherKey="id", IsForeignKey=true)]
+		public employee employee
+		{
+			get
+			{
+				return this._employee.Entity;
+			}
+			set
+			{
+				employee previousValue = this._employee.Entity;
 				if (((previousValue != value) 
-							|| (this._driver.HasLoadedOrAssignedValue == false)))
+							|| (this._employee.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._driver.Entity = null;
+						this._employee.Entity = null;
 						previousValue.parcel_logs.Remove(this);
 					}
-					this._driver.Entity = value;
+					this._employee.Entity = value;
 					if ((value != null))
 					{
 						value.parcel_logs.Add(this);
-						this._driver_id = value.id;
+						this._employee_id = value.id;
 					}
 					else
 					{
-						this._driver_id = default(int);
+						this._employee_id = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("driver");
+					this.SendPropertyChanged("employee");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_log", Storage="_parcel", ThisKey="parcel_id", OtherKey="tracking_no", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="location_parcel_log", Storage="_location", ThisKey="location_id", OtherKey="id", IsForeignKey=true)]
+		public location location
+		{
+			get
+			{
+				return this._location.Entity;
+			}
+			set
+			{
+				location previousValue = this._location.Entity;
+				if (((previousValue != value) 
+							|| (this._location.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._location.Entity = null;
+						previousValue.parcel_logs.Remove(this);
+					}
+					this._location.Entity = value;
+					if ((value != null))
+					{
+						value.parcel_logs.Add(this);
+						this._location_id = value.id;
+					}
+					else
+					{
+						this._location_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("location");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_log", Storage="_parcel", ThisKey="parcel_id", OtherKey="id", IsForeignKey=true)]
 		public parcel parcel
 		{
 			get
@@ -1064,13 +1450,47 @@ namespace LogisticsTrackingSystem
 					if ((value != null))
 					{
 						value.parcel_logs.Add(this);
-						this._parcel_id = value.tracking_no;
+						this._parcel_id = value.id;
 					}
 					else
 					{
 						this._parcel_id = default(string);
 					}
 					this.SendPropertyChanged("parcel");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="route_parcel_log", Storage="_route", ThisKey="route_id", OtherKey="id", IsForeignKey=true)]
+		public route route
+		{
+			get
+			{
+				return this._route.Entity;
+			}
+			set
+			{
+				route previousValue = this._route.Entity;
+				if (((previousValue != value) 
+							|| (this._route.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._route.Entity = null;
+						previousValue.parcel_logs.Remove(this);
+					}
+					this._route.Entity = value;
+					if ((value != null))
+					{
+						value.parcel_logs.Add(this);
+						this._route_id = value.id;
+					}
+					else
+					{
+						this._route_id = default(int);
+					}
+					this.SendPropertyChanged("route");
 				}
 			}
 		}
@@ -1106,6 +1526,8 @@ namespace LogisticsTrackingSystem
 		
 		private int _route_id;
 		
+		private int _sequence;
+		
 		private EntityRef<parcel> _parcel;
 		
 		private EntityRef<route> _route;
@@ -1118,6 +1540,8 @@ namespace LogisticsTrackingSystem
     partial void Onparcel_idChanged();
     partial void Onroute_idChanging(int value);
     partial void Onroute_idChanged();
+    partial void OnsequenceChanging(int value);
+    partial void OnsequenceChanged();
     #endregion
 		
 		public parcel_route()
@@ -1151,7 +1575,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_route_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_route_id", DbType="Int NOT NULL")]
 		public int route_id
 		{
 			get
@@ -1175,7 +1599,27 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_route", Storage="_parcel", ThisKey="parcel_id", OtherKey="tracking_no", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sequence", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int sequence
+		{
+			get
+			{
+				return this._sequence;
+			}
+			set
+			{
+				if ((this._sequence != value))
+				{
+					this.OnsequenceChanging(value);
+					this.SendPropertyChanging();
+					this._sequence = value;
+					this.SendPropertyChanged("sequence");
+					this.OnsequenceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_route", Storage="_parcel", ThisKey="parcel_id", OtherKey="id", IsForeignKey=true)]
 		public parcel parcel
 		{
 			get
@@ -1198,7 +1642,7 @@ namespace LogisticsTrackingSystem
 					if ((value != null))
 					{
 						value.parcel_routes.Add(this);
-						this._parcel_id = value.tracking_no;
+						this._parcel_id = value.id;
 					}
 					else
 					{
@@ -1270,13 +1714,13 @@ namespace LogisticsTrackingSystem
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private string _tracking_no;
+		private string _id;
 		
 		private decimal _weight;
 		
-		private string _status;
-		
 		private string _type;
+		
+		private string _status;
 		
 		private System.Nullable<System.DateTime> _created_at;
 		
@@ -1292,9 +1736,9 @@ namespace LogisticsTrackingSystem
 		
 		private EntitySet<parcel_route> _parcel_routes;
 		
-		private EntityRef<warehouse> _warehouse;
+		private EntityRef<location> _location;
 		
-		private EntityRef<warehouse> _warehouse1;
+		private EntityRef<location> _location1;
 		
 		private EntityRef<customer> _customer;
 		
@@ -1304,14 +1748,14 @@ namespace LogisticsTrackingSystem
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void Ontracking_noChanging(string value);
-    partial void Ontracking_noChanged();
+    partial void OnidChanging(string value);
+    partial void OnidChanged();
     partial void OnweightChanging(decimal value);
     partial void OnweightChanged();
-    partial void OnstatusChanging(string value);
-    partial void OnstatusChanged();
     partial void OntypeChanging(string value);
     partial void OntypeChanged();
+    partial void OnstatusChanging(string value);
+    partial void OnstatusChanged();
     partial void Oncreated_atChanging(System.Nullable<System.DateTime> value);
     partial void Oncreated_atChanged();
     partial void Onsender_idChanging(int value);
@@ -1328,29 +1772,29 @@ namespace LogisticsTrackingSystem
 		{
 			this._parcel_logs = new EntitySet<parcel_log>(new Action<parcel_log>(this.attach_parcel_logs), new Action<parcel_log>(this.detach_parcel_logs));
 			this._parcel_routes = new EntitySet<parcel_route>(new Action<parcel_route>(this.attach_parcel_routes), new Action<parcel_route>(this.detach_parcel_routes));
-			this._warehouse = default(EntityRef<warehouse>);
-			this._warehouse1 = default(EntityRef<warehouse>);
+			this._location = default(EntityRef<location>);
+			this._location1 = default(EntityRef<location>);
 			this._customer = default(EntityRef<customer>);
 			this._customer1 = default(EntityRef<customer>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tracking_no", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string tracking_no
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string id
 		{
 			get
 			{
-				return this._tracking_no;
+				return this._id;
 			}
 			set
 			{
-				if ((this._tracking_no != value))
+				if ((this._id != value))
 				{
-					this.Ontracking_noChanging(value);
+					this.OnidChanging(value);
 					this.SendPropertyChanging();
-					this._tracking_no = value;
-					this.SendPropertyChanged("tracking_no");
-					this.Ontracking_noChanged();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
 				}
 			}
 		}
@@ -1375,26 +1819,6 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string status
-		{
-			get
-			{
-				return this._status;
-			}
-			set
-			{
-				if ((this._status != value))
-				{
-					this.OnstatusChanging(value);
-					this.SendPropertyChanging();
-					this._status = value;
-					this.SendPropertyChanged("status");
-					this.OnstatusChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
 		public string type
 		{
@@ -1411,6 +1835,26 @@ namespace LogisticsTrackingSystem
 					this._type = value;
 					this.SendPropertyChanged("type");
 					this.OntypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
 				}
 			}
 		}
@@ -1494,7 +1938,7 @@ namespace LogisticsTrackingSystem
 			{
 				if ((this._origin_id != value))
 				{
-					if (this._warehouse1.HasLoadedOrAssignedValue)
+					if (this._location1.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1518,7 +1962,7 @@ namespace LogisticsTrackingSystem
 			{
 				if ((this._destination_id != value))
 				{
-					if (this._warehouse.HasLoadedOrAssignedValue)
+					if (this._location.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1531,7 +1975,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_log", Storage="_parcel_logs", ThisKey="tracking_no", OtherKey="parcel_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_log", Storage="_parcel_logs", ThisKey="id", OtherKey="parcel_id")]
 		public EntitySet<parcel_log> parcel_logs
 		{
 			get
@@ -1544,7 +1988,7 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_route", Storage="_parcel_routes", ThisKey="tracking_no", OtherKey="parcel_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="parcel_parcel_route", Storage="_parcel_routes", ThisKey="id", OtherKey="parcel_id")]
 		public EntitySet<parcel_route> parcel_routes
 		{
 			get
@@ -1557,26 +2001,26 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="warehouse_parcel", Storage="_warehouse", ThisKey="destination_id", OtherKey="id", IsForeignKey=true)]
-		public warehouse warehouse
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="location_parcel", Storage="_location", ThisKey="destination_id", OtherKey="id", IsForeignKey=true)]
+		public location location
 		{
 			get
 			{
-				return this._warehouse.Entity;
+				return this._location.Entity;
 			}
 			set
 			{
-				warehouse previousValue = this._warehouse.Entity;
+				location previousValue = this._location.Entity;
 				if (((previousValue != value) 
-							|| (this._warehouse.HasLoadedOrAssignedValue == false)))
+							|| (this._location.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._warehouse.Entity = null;
+						this._location.Entity = null;
 						previousValue.parcels.Remove(this);
 					}
-					this._warehouse.Entity = value;
+					this._location.Entity = value;
 					if ((value != null))
 					{
 						value.parcels.Add(this);
@@ -1586,31 +2030,31 @@ namespace LogisticsTrackingSystem
 					{
 						this._destination_id = default(int);
 					}
-					this.SendPropertyChanged("warehouse");
+					this.SendPropertyChanged("location");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="warehouse_parcel1", Storage="_warehouse1", ThisKey="origin_id", OtherKey="id", IsForeignKey=true)]
-		public warehouse warehouse1
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="location_parcel1", Storage="_location1", ThisKey="origin_id", OtherKey="id", IsForeignKey=true)]
+		public location location1
 		{
 			get
 			{
-				return this._warehouse1.Entity;
+				return this._location1.Entity;
 			}
 			set
 			{
-				warehouse previousValue = this._warehouse1.Entity;
+				location previousValue = this._location1.Entity;
 				if (((previousValue != value) 
-							|| (this._warehouse1.HasLoadedOrAssignedValue == false)))
+							|| (this._location1.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._warehouse1.Entity = null;
+						this._location1.Entity = null;
 						previousValue.parcels1.Remove(this);
 					}
-					this._warehouse1.Entity = value;
+					this._location1.Entity = value;
 					if ((value != null))
 					{
 						value.parcels1.Add(this);
@@ -1620,7 +2064,7 @@ namespace LogisticsTrackingSystem
 					{
 						this._origin_id = default(int);
 					}
-					this.SendPropertyChanged("warehouse1");
+					this.SendPropertyChanged("location1");
 				}
 			}
 		}
@@ -1750,21 +2194,25 @@ namespace LogisticsTrackingSystem
 		
 		private System.Nullable<int> _estimated_time;
 		
+		private System.Nullable<System.DateTime> _assigned_at;
+		
+		private string _status;
+		
 		private int _origin_id;
 		
 		private int _destination_id;
 		
-		private int _driver_id;
+		private int _vehicle_id;
 		
-		private System.Nullable<System.DateTime> _assigned_at;
+		private EntitySet<parcel_log> _parcel_logs;
 		
 		private EntitySet<parcel_route> _parcel_routes;
 		
-		private EntityRef<warehouse> _warehouse;
+		private EntityRef<location> _location;
 		
-		private EntityRef<driver> _driver;
+		private EntityRef<location> _location1;
 		
-		private EntityRef<warehouse> _warehouse1;
+		private EntityRef<vehicle> _vehicle;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1776,22 +2224,25 @@ namespace LogisticsTrackingSystem
     partial void OndistanceChanged();
     partial void Onestimated_timeChanging(System.Nullable<int> value);
     partial void Onestimated_timeChanged();
+    partial void Onassigned_atChanging(System.Nullable<System.DateTime> value);
+    partial void Onassigned_atChanged();
+    partial void OnstatusChanging(string value);
+    partial void OnstatusChanged();
     partial void Onorigin_idChanging(int value);
     partial void Onorigin_idChanged();
     partial void Ondestination_idChanging(int value);
     partial void Ondestination_idChanged();
-    partial void Ondriver_idChanging(int value);
-    partial void Ondriver_idChanged();
-    partial void Onassigned_atChanging(System.Nullable<System.DateTime> value);
-    partial void Onassigned_atChanged();
+    partial void Onvehicle_idChanging(int value);
+    partial void Onvehicle_idChanged();
     #endregion
 		
 		public route()
 		{
+			this._parcel_logs = new EntitySet<parcel_log>(new Action<parcel_log>(this.attach_parcel_logs), new Action<parcel_log>(this.detach_parcel_logs));
 			this._parcel_routes = new EntitySet<parcel_route>(new Action<parcel_route>(this.attach_parcel_routes), new Action<parcel_route>(this.detach_parcel_routes));
-			this._warehouse = default(EntityRef<warehouse>);
-			this._driver = default(EntityRef<driver>);
-			this._warehouse1 = default(EntityRef<warehouse>);
+			this._location = default(EntityRef<location>);
+			this._location1 = default(EntityRef<location>);
+			this._vehicle = default(EntityRef<vehicle>);
 			OnCreated();
 		}
 		
@@ -1855,6 +2306,46 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_assigned_at", DbType="DateTime")]
+		public System.Nullable<System.DateTime> assigned_at
+		{
+			get
+			{
+				return this._assigned_at;
+			}
+			set
+			{
+				if ((this._assigned_at != value))
+				{
+					this.Onassigned_atChanging(value);
+					this.SendPropertyChanging();
+					this._assigned_at = value;
+					this.SendPropertyChanged("assigned_at");
+					this.Onassigned_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_origin_id", DbType="Int NOT NULL")]
 		public int origin_id
 		{
@@ -1866,7 +2357,7 @@ namespace LogisticsTrackingSystem
 			{
 				if ((this._origin_id != value))
 				{
-					if (this._warehouse1.HasLoadedOrAssignedValue)
+					if (this._location1.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1890,7 +2381,7 @@ namespace LogisticsTrackingSystem
 			{
 				if ((this._destination_id != value))
 				{
-					if (this._warehouse.HasLoadedOrAssignedValue)
+					if (this._location.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1903,47 +2394,40 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_driver_id", DbType="Int NOT NULL")]
-		public int driver_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_vehicle_id", DbType="Int NOT NULL")]
+		public int vehicle_id
 		{
 			get
 			{
-				return this._driver_id;
+				return this._vehicle_id;
 			}
 			set
 			{
-				if ((this._driver_id != value))
+				if ((this._vehicle_id != value))
 				{
-					if (this._driver.HasLoadedOrAssignedValue)
+					if (this._vehicle.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.Ondriver_idChanging(value);
+					this.Onvehicle_idChanging(value);
 					this.SendPropertyChanging();
-					this._driver_id = value;
-					this.SendPropertyChanged("driver_id");
-					this.Ondriver_idChanged();
+					this._vehicle_id = value;
+					this.SendPropertyChanged("vehicle_id");
+					this.Onvehicle_idChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_assigned_at", DbType="DateTime")]
-		public System.Nullable<System.DateTime> assigned_at
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="route_parcel_log", Storage="_parcel_logs", ThisKey="id", OtherKey="route_id")]
+		public EntitySet<parcel_log> parcel_logs
 		{
 			get
 			{
-				return this._assigned_at;
+				return this._parcel_logs;
 			}
 			set
 			{
-				if ((this._assigned_at != value))
-				{
-					this.Onassigned_atChanging(value);
-					this.SendPropertyChanging();
-					this._assigned_at = value;
-					this.SendPropertyChanged("assigned_at");
-					this.Onassigned_atChanged();
-				}
+				this._parcel_logs.Assign(value);
 			}
 		}
 		
@@ -1960,26 +2444,26 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="warehouse_route", Storage="_warehouse", ThisKey="destination_id", OtherKey="id", IsForeignKey=true)]
-		public warehouse warehouse
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="location_route", Storage="_location", ThisKey="destination_id", OtherKey="id", IsForeignKey=true)]
+		public location location
 		{
 			get
 			{
-				return this._warehouse.Entity;
+				return this._location.Entity;
 			}
 			set
 			{
-				warehouse previousValue = this._warehouse.Entity;
+				location previousValue = this._location.Entity;
 				if (((previousValue != value) 
-							|| (this._warehouse.HasLoadedOrAssignedValue == false)))
+							|| (this._location.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._warehouse.Entity = null;
+						this._location.Entity = null;
 						previousValue.routes.Remove(this);
 					}
-					this._warehouse.Entity = value;
+					this._location.Entity = value;
 					if ((value != null))
 					{
 						value.routes.Add(this);
@@ -1989,65 +2473,31 @@ namespace LogisticsTrackingSystem
 					{
 						this._destination_id = default(int);
 					}
-					this.SendPropertyChanged("warehouse");
+					this.SendPropertyChanged("location");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="driver_route", Storage="_driver", ThisKey="driver_id", OtherKey="id", IsForeignKey=true)]
-		public driver driver
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="location_route1", Storage="_location1", ThisKey="origin_id", OtherKey="id", IsForeignKey=true)]
+		public location location1
 		{
 			get
 			{
-				return this._driver.Entity;
+				return this._location1.Entity;
 			}
 			set
 			{
-				driver previousValue = this._driver.Entity;
+				location previousValue = this._location1.Entity;
 				if (((previousValue != value) 
-							|| (this._driver.HasLoadedOrAssignedValue == false)))
+							|| (this._location1.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._driver.Entity = null;
-						previousValue.routes.Remove(this);
-					}
-					this._driver.Entity = value;
-					if ((value != null))
-					{
-						value.routes.Add(this);
-						this._driver_id = value.id;
-					}
-					else
-					{
-						this._driver_id = default(int);
-					}
-					this.SendPropertyChanged("driver");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="warehouse_route1", Storage="_warehouse1", ThisKey="origin_id", OtherKey="id", IsForeignKey=true)]
-		public warehouse warehouse1
-		{
-			get
-			{
-				return this._warehouse1.Entity;
-			}
-			set
-			{
-				warehouse previousValue = this._warehouse1.Entity;
-				if (((previousValue != value) 
-							|| (this._warehouse1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._warehouse1.Entity = null;
+						this._location1.Entity = null;
 						previousValue.routes1.Remove(this);
 					}
-					this._warehouse1.Entity = value;
+					this._location1.Entity = value;
 					if ((value != null))
 					{
 						value.routes1.Add(this);
@@ -2057,7 +2507,41 @@ namespace LogisticsTrackingSystem
 					{
 						this._origin_id = default(int);
 					}
-					this.SendPropertyChanged("warehouse1");
+					this.SendPropertyChanged("location1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="vehicle_route", Storage="_vehicle", ThisKey="vehicle_id", OtherKey="id", IsForeignKey=true)]
+		public vehicle vehicle
+		{
+			get
+			{
+				return this._vehicle.Entity;
+			}
+			set
+			{
+				vehicle previousValue = this._vehicle.Entity;
+				if (((previousValue != value) 
+							|| (this._vehicle.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._vehicle.Entity = null;
+						previousValue.routes.Remove(this);
+					}
+					this._vehicle.Entity = value;
+					if ((value != null))
+					{
+						value.routes.Add(this);
+						this._vehicle_id = value.id;
+					}
+					else
+					{
+						this._vehicle_id = default(int);
+					}
+					this.SendPropertyChanged("vehicle");
 				}
 			}
 		}
@@ -2080,6 +2564,18 @@ namespace LogisticsTrackingSystem
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_parcel_logs(parcel_log entity)
+		{
+			this.SendPropertyChanging();
+			entity.route = this;
+		}
+		
+		private void detach_parcel_logs(parcel_log entity)
+		{
+			this.SendPropertyChanging();
+			entity.route = null;
 		}
 		
 		private void attach_parcel_routes(parcel_route entity)
