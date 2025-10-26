@@ -1,0 +1,64 @@
+.Panel01{
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.PanelContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* spreads them left and right */
+  align-items: flex-start;
+  gap: 20px; /* optional spacing between panels */
+  margin-top: 20px;
+}
+
+.Panel02, .Panel03 {
+  flex: 1; /* makes them share space equally */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: aquamarine;
+  border-radius: 5px;
+  padding: 150px;
+}
+.Panel04 {
+  margin-top: 40px; /* increased from 20px */
+  padding-top: 20px; /* adds internal spacing above content */
+  display: flex;
+  flex-direction: row;
+  background-color: gray;
+  border-radius: 5px;
+  overflow: hidden; /* trims any overlapping borders */
+}
+
+.AdminTable {
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-right: 1px solid #ccc; /* divider between tables */
+}
+
+.AdminTable:last-child {
+  border-right: none; /* remove divider from last table */
+}
+
+.AdminTable th, .AdminTable td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: white;
+  text-align: center;
+}
+.tabelheader {
+  text-align: center;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}

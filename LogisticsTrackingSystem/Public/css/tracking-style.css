@@ -1,0 +1,107 @@
+.Panel01{
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.TrackingBxTx{
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    width: 600px;
+}
+.TrackingBtn{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+.Panel02, .Panel03{
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 20px;
+    justify-content: space-evenly;
+
+}
+.image_track_box{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+/*   border: 2px solid #007bff; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 10px;
+
+}
+.image_track{
+  width: 120px;
+  height: auto;
+  border-radius: 10px; /* optional: soft corners */
+
+}
+.LabelTrack{
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+.Panel03{
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    justify-content: left;
+    align-items: left;
+    display: flex;
+    /* flex-direction: column; */
+    display: flex;
+    flex-direction: row;
+    /* align-items: lef; */
+    margin-right: 20px;
+    justify-content: left;
+
+}
+.tracking_info{
+  width: 40px;
+  height: auto;
+  border-radius: 10px; /* optional: soft corners */
+  justify-content: left;
+  /* background-color: #007bff; */
+}
+.processing {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start; /* aligns items to the left */
+  align-items: center;         /* vertically centers items */
+  flex-wrap: nowrap;           /* prevents wrapping to next line */
+  color: orange;
+  font-weight: bold;
+  gap: 20px;                   /* optional: spacing between items */
+}
+.Panel02,
+.Panel03 {
+  display: none;
+}

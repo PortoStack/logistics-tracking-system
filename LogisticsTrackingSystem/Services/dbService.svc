@@ -1,7 +1,6 @@
-﻿<%@ ServiceHost 
+﻿﻿<%@ ServiceHost 
 	Language="C#" 
 	Debug="true" 
-	Service="LogisticsTrackingSystem.Services.dbService" 
-	CodeBehind="dbService.svc.cs" 
+	Service="LogisticsTrackingSystem.Services.DbService" 
+	CodeBehind="DbService.svc.cs" 
 	Factory="System.ServiceModel.Activation.WebServiceHostFactory" %>
-	
