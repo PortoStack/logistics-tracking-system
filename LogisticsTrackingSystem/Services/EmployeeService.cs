@@ -1,5 +1,6 @@
 ﻿using LogisticsTrackingSystem.Models;
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace LogisticsTrackingSystem.Services
@@ -29,7 +30,10 @@ namespace LogisticsTrackingSystem.Services
 
         public EmployeeModel GetById(string id)
         {
+            var empId = int.Parse(id);
+
             var employee = from e in db.employees
+                           where e.id == empId
                            select new EmployeeModel
                            {
                                id = (int)e.id,
@@ -41,8 +45,24 @@ namespace LogisticsTrackingSystem.Services
             return employee.FirstOrDefault();
         }
 
+        public EmployeeModel[] GetByRole(string role)
+        {
+            var employee = from e in db.employees
+                           where e.role == role
+                           select new EmployeeModel
+                           {
+                               id = (int)e.id,
+                               name = e.name,
+                               email = e.email,
+                               phone = e.phone,
+                               role = e.role,
+                           };
+            return employee.ToArray();
+        }
+
         public string Insert(EmployeeModel input)
         {
+            db.Connection.Open();
             var transaction = db.Connection.BeginTransaction();
             db.Transaction = transaction;
 
@@ -54,30 +74,51 @@ namespace LogisticsTrackingSystem.Services
                     phone = input.phone,
                     email = input.email,
                     password = input.password,
+                    role = "employee",
                 };
 
                 db.employees.InsertOnSubmit(employee);
                 db.SubmitChanges();
-                transaction.Commit();
 
-                return $"Inserted Employee Id = {employee.id}";
+
+                transaction.Commit();
+                return Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    message = $"Inserted Employee Id = {employee.id}",
+                });
             }
-            catch (Exception ex)
+            catch (System.Data.SqlClient.SqlException ex)
             {
                 transaction.Rollback();
-                return $"Error: {ex.Message}";
+                Debug.WriteLine("SqlException: " + ex.Message);
+                return Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    message = $"Errror: {ex.Message}",
+                });
+            }
+            finally 
+            { 
+                db.Connection.Close(); 
             }
         }
 
         public string Update(EmployeeModel input)
         {
+            db.Connection.Open();
             var transaction = db.Connection.BeginTransaction();
             db.Transaction = transaction;
 
             try
             {
                 var employee = db.employees.FirstOrDefault(e => e.id == input.id);
-                if (employee == null) return "Employee not found";
+                if (employee == null)
+                {
+                    transaction.Rollback();
+                    return Newtonsoft.Json.JsonConvert.SerializeObject(new
+                    {
+                        message = "Employee not found",
+                    });
+                }
 
                 employee.name = input.name;
                 employee.email = input.email;
@@ -85,36 +126,62 @@ namespace LogisticsTrackingSystem.Services
                 employee.role = input.role;
 
                 db.SubmitChanges();
-                transaction.Commit();
 
-                return $"Updated Employee Id = {employee.id}";
+                transaction.Commit();
+                return Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    message = $"Updated Employee Id = {employee.id}",
+                });
             }
-            catch (Exception ex)
+            catch (System.Data.SqlClient.SqlException ex)
             {
                 transaction.Rollback();
-                return $"Error: {ex.Message}";
+                Debug.WriteLine("SqlException: " + ex.Message);
+                return Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    message = $"Errror: {ex.Message}",
+                });
+            }
+            finally
+            {
+                db.Connection.Close();
             }
         }
 
-        public string Delete(int id)
+        public string Delete(string id)
         {
+            db.Connection.Open();
             var transaction = db.Connection.BeginTransaction();
             db.Transaction = transaction;
 
             try
             {
-                var employee = db.employees.FirstOrDefault(e => e.id == id);
+                var empId = int.Parse(id);
+
+                var employee = db.employees.FirstOrDefault(e => e.id == empId);
                 if (employee == null) return "Employee not found";
 
                 db.employees.DeleteOnSubmit(employee);
                 db.SubmitChanges();
-                transaction.Commit();
 
-                return $"Deleted Employee Id = {employee.id}";
+                transaction.Commit();
+                return Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    message = $"Deleted Employee Id = {employee.id}",
+                });
             }
-            catch (Exception ex) { 
+            catch (System.Data.SqlClient.SqlException ex)
+            {
                 transaction.Rollback();
-                return $"Error: {ex.Message}";
+                Debug.WriteLine("SqlException: " + ex.Message);
+                return Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    message = $"Errror: {ex.Message}",
+                });
+            }
+            finally
+            {
+                db.Connection.Close();
             }
         }
     }

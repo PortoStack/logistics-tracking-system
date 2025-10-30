@@ -1,7 +1,9 @@
 ﻿using LogisticsTrackingSystem.Models;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace LogisticsTrackingSystem.Services
 {
@@ -16,47 +18,37 @@ namespace LogisticsTrackingSystem.Services
 
         public string SignIn(EmployeeModel input)
         {
-            var transaction = db.Connection.BeginTransaction();
-            db.Transaction = transaction;
-
             try
             {
                 var employee = (from e in db.employees
-                               where e.id == input.id
-                               select new EmployeeModel()).FirstOrDefault();
+                                where e.email == input.email
+                                select new EmployeeModel
+                                { 
+                                    name = e.name,
+                                    role = e.role,
+                                    password = e.password,
+                                    id = e.id,
+                                }).FirstOrDefault();
 
                 if (employee == null) return "Employee not found";
                 if (employee.password != input.password) return "Incorrect password";
 
-                HttpContext.Current.Session["EmployeeId"] = employee.id;
-                HttpContext.Current.Session["EmployeeName"] = employee.name;
-                HttpContext.Current.Session["EmployeeRole"] = employee.role;
-
-                transaction.Commit();
-
-                return "Login successful";
+                return Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                     message = "Login successful",
+                     role = employee.role,
+                     name = employee.name,
+                     id = employee.id,
+                });
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
-                return $"Error: {ex.Message}";
+                Debug.WriteLine(ex.Message);
+                return Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    message = ex.Message,
+                });
             }
-        }
-
-        public string SignOut()
-        {
-            HttpContext.Current.Session.Clear();
-            return "Logout successful";
-        }
-
-        public bool IsLoggedIn()
-        {
-            return HttpContext.Current.Session["EmployeeId"] != null;
-        }
-
-        public bool HasRole(string role)
-        {
-            return HttpContext.Current.Session["EmployeeRole"]?.ToString() != role;
         }
     }
 }

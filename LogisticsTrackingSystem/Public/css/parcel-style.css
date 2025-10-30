@@ -1,0 +1,335 @@
+@import "./style.css";
+
+/* ensure root fills the viewport */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* make layout cover full page reliably */
+.PageLayOut{
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-direction: row; /* sidebar + content columns */
+    min-height: 100vh;   /* full viewport height */
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;    /* prevents body scrollbar; content areas can scroll */
+}
+.SectionOne,.SectionTwo{
+    display: flex;
+    flex-direction: column; /* content inside each section stacks vertically */
+    flex: 1; /* share available width equally */
+    gap: 16px; /* optional spacing between vertical items */
+    box-sizing: border-box;
+}
+.SectionOne{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 220px; /* fixed width sidebar */
+    width: 220px;
+    gap: 16px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    /* padding: 12px; */
+    border-right: 1px solid black;
+    min-height: 100vh; /* Sidebar should stretch full height and use column flex layout */
+}
+.NavBar-Container,.Navbar-FLuid{
+    height: 100%;
+}
+.Nav-Menu{
+    padding-left: 0;
+}
+.nav-item{
+    list-style: none;
+    padding-top: 10px;
+    border-bottom: 1px solid black;
+    justify-content: flex-start;
+}
+.nav-item a{
+    text-decoration: none;
+    color: black;
+}
+.SectionTwo{
+    height: 100%;
+    overflow: auto;
+    background-color: #D1D1D1;
+}
+.Horizontal-Nav{
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+.LOGO, .Search-Box img{
+    width: 2.7%;
+}
+.Search-Box-Container{
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    justify-content: space-between;
+    width: 100%;
+    margin-right: 0;
+
+}
+.Search-Box{
+    /* flex: 0 0 100%;       take ~60% of available width */
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 6px 10px;
+}
+.Search-Bar{
+    margin-left: 10px;
+    padding-left: 20px;
+    width: auto;
+    box-sizing: border-box;
+    outline: none;
+    flex: 1 1 auto;
+}
+/* place DashBoard on the left and Navigate on the right */
+.DashBoard{
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 10px;
+    gap: 8px;
+}
+.Navigate{
+    display: flex;
+    margin-left: auto; /* pushes this group to the right */
+    justify-content: flex-end;
+    gap: 8px;
+    padding-right: 20px;    
+}
+.Navigate button a{
+    text-decoration: none;
+    color: black;
+}
+.Navigate button{
+    height: 50px;
+    width: 120px;
+    border: 0.5px solid ;
+    border-radius: 15px;
+}
+.DashBoard,.Navigate{
+    justify-content: center;
+}
+.DashBoard{
+    justify-content: space-between;
+    display: flex;
+}
+.LowerSection{
+    display: flex;
+    flex-direction: row; /* content inside each section stacks vertically */
+    flex: 0 0 auto; /* share available width equally */
+    box-sizing: border-box;
+    gap: 16px;
+}
+.UpperSection{
+    display: grid;
+    width: 100%;
+    gap: 20px;
+    padding: 20px;
+    gap: 20px;
+    align-items: start;
+}
+.Box{
+    width: 100%;
+    height: 200px;
+    background-color: #FFFFFF;
+    color: black;
+
+    /* layout: image (left, top) + text (right) */
+    display: flex;
+    flex-direction: row;
+    /* align-items: flex-start;    align items to top */
+    justify-content: flex-start;/* keep items left-aligned */
+    gap: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    overflow: hidden;
+    align-items: flex-start; /* ensure left-aligned text */
+
+}
+.BoxContent{
+    display: flex;
+    flex-direction: column; /* h6 -> h2 -> h6 stacked */
+    justify-content: flex-start; /* align text to top */
+    gap: 6px;
+    flex: 1 1 auto;
+    min-width: 0; /* allow truncation if space is tight */
+    align-items: flex-start; /* ensure left-aligned text */
+    
+}
+.BoxContent h2,
+.BoxContent h6 {
+    margin: 0;
+    display: block;
+    line-height: 1;
+    padding: 0;
+    text-align: left;
+}
+.Box h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background-color: green;
+    padding: 10px;
+    /* margin: 2px; */
+    /* border-radius: 25%; */
+}
+.Box h6 {
+    font-size: 2rem;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+.Box img{
+    order: -1;            /* ensure image appears before the text */
+    align-self: flex-start;   /* pin image to the top of the box */
+    width: 15%;
+    height: auto;
+    flex: 0 0 auto;
+    margin-left: 3px;
+    margin-right: 12px;   /* spacing between image and text */
+    border-radius: 50%;
+}
+
+.TEXT{
+    display: flex;
+    flex-direction: row;
+    width: 100%;              /* ensure it spans the full width above tables */
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 0;         /* spacing handled by .LowerSection gap */
+}
+
+/* container name matches HTML (case-sensitive class names) and fills sidebar */
+.Navbar-container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 12px 8px;
+}
+
+/* inner fluid area takes remaining space so we can push the second menu to the bottom */
+.Navbar-FLuid{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+/* push the last menu to the bottom of the sidebar */
+.Navbar-container .Nav-Menu:last-of-type{
+    margin-top: auto;
+}
+
+/* small visual tweaks so the sidebar looks filled */
+.SectionOne, .Navbar-container, .Navbar-FLuid {
+    width: 220px; /* keep the fixed sidebar width */
+    box-sizing: border-box;
+}
+#pageContent.blur {
+  filter: blur(5px);
+  pointer-events: none;
+}
+/* Modal overlay */
+#popupModal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal content box */
+.modalContent {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Form elements */
+.modalContent label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.modalContent input,
+.modalContent select {
+  padding: 8px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Button row */
+.buttonRow {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.save-btn {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+#close-btn {
+    cursor: pointer;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+/* Table style */
+.parcel-table {
+    height: 640px;
+    overflow-y: auto;
+    background-color: white;
+}
+
+.parcel-table > table {
+    width: 100%;
+}
+
+.parcel-table td,
+.parcel-table th {
+    padding: 1rem 0;
+    border-bottom: 2px solid var(--color-gray);
+    text-align: center;
+}
+
+.parcel-table th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+
+.parcel-table .edit-btn {
+    display: flex;
+    margin: auto;
+    align-items: center;
+}

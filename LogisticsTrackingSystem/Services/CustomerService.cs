@@ -1,5 +1,6 @@
 ﻿using LogisticsTrackingSystem.Models;
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace LogisticsTrackingSystem.Services
@@ -7,7 +8,7 @@ namespace LogisticsTrackingSystem.Services
     public class CustomerService
     {
         private DataClassesDataContext db;
-        public CustomerService(DataClassesDataContext db) 
+        public CustomerService(DataClassesDataContext db)
         {
             this.db = db;
         }
@@ -20,12 +21,28 @@ namespace LogisticsTrackingSystem.Services
                                id = c.id,
                                name = c.name,
                                email = c.email,
+                               phone = c.phone,
                            };
             return customer.ToArray();
         }
 
+        public CustomerModel GetByPhone(string phone)
+        {
+            var customer = from c in db.customers
+                           where c.phone == phone
+                           select new CustomerModel
+                           {
+                               id = c.id,
+                               name = c.name,
+                               email = c.email,
+                               phone = c.phone,
+                           };
+            return customer.FirstOrDefault();
+        }
+
         public string Insert(CustomerModel input)
         {
+            db.Connection.Open();
             var transaction = db.Connection.BeginTransaction();
             db.Transaction = transaction;
 
@@ -40,19 +57,25 @@ namespace LogisticsTrackingSystem.Services
 
                 db.customers.InsertOnSubmit(customer);
                 db.SubmitChanges();
-                transaction.Commit();
 
+                transaction.Commit();
                 return $"Inserted Customer Id = {customer.id}";
             }
-            catch (Exception ex)
+            catch (System.Data.SqlClient.SqlException ex)
             {
                 transaction.Rollback();
-                return $"Error: {ex.Message}";
+                Debug.WriteLine("SqlException: " + ex.Message);
+                return $"Errror: {ex.Message}";
+            }
+            finally
+            {
+                db.Connection.Close();
             }
         }
 
         public string Update(CustomerModel input)
         {
+            db.Connection.Open();
             var transaction = db.Connection.BeginTransaction();
             db.Transaction = transaction;
 
@@ -66,37 +89,50 @@ namespace LogisticsTrackingSystem.Services
                 customer.phone = input.phone;
 
                 db.SubmitChanges();
-                transaction.Commit();
 
+                transaction.Commit();
                 return $"Updated Customer Id = {customer.id}";
             }
-            catch (Exception ex)
+            catch (System.Data.SqlClient.SqlException ex)
             {
                 transaction.Rollback();
-                return $"Error: {ex.Message}";
+                Debug.WriteLine("SqlException: " + ex.Message);
+                return $"Errror: {ex.Message}";
+            }
+            finally
+            {
+                db.Connection.Close();
             }
         }
 
-       public string Delete(int id)
+        public string Delete(string id)
         {
+            db.Connection.Open();
             var transaction = db.Connection.BeginTransaction();
             db.Transaction = transaction;
 
             try
             {
-                var customer = db.customers.FirstOrDefault(c => c.id == id);
+                var customerId = int.Parse(id);
+
+                var customer = db.customers.FirstOrDefault(c => c.id == customerId);
                 if (customer == null) return "Customer not found";
 
                 db.customers.DeleteOnSubmit(customer);
                 db.SubmitChanges();
-                transaction.Commit();
 
+                transaction.Commit();
                 return $"Deleted Customer Id = {customer.id}";
             }
-            catch (Exception ex)
+            catch (System.Data.SqlClient.SqlException ex)
             {
                 transaction.Rollback();
-                return $"Error: {ex.Message}";
+                Debug.WriteLine("SqlException: " + ex.Message);
+                return $"Errror: {ex.Message}";
+            }
+            finally
+            {
+                db.Connection.Close();
             }
         }
     }

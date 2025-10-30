@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/Public/css/employee-style.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parcel</title>
+</head>
+
+<body>
+
+  <header>
+    <h1 id="emp-name"></h1>
+    <div>
+      <button id="logout">LOGOUT</button>
+    </div>
+  </header>
+
+  <div>
+
+    <div class="panel tab">
+      <a class="active" href="/Views/employee/parcel.html">Parcel</a>
+      <a href="/Views/employee/add.html">Add</a>
+    </div>
+
+    <div class="panel search-bar">
+      <span style="font-size: 1.6rem; font-weight: 600; position: absolute; left: 0.5rem;" class="material-symbols-outlined">
+        search
+      </span>
+      <input type="text" id="search-parcel">
+    </div>
+
+    <div class="panel parcel-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Type</th>
+            <th>Weight</th>
+            <th>Status</th>
+            <th>Sender</th>
+            <th>Receiver</th>
+          </tr>
+        </thead>
+        <tbody id="parcels">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script type="module" src="/Public/js/employee-script.js"></script>
+</body>
+
+</html>

@@ -1,107 +1,111 @@
-.Panel01{
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin: 10px;
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-.TrackingBxTx{
-    font-size: 18px;
-    color: #333;
-    text-align: center;
-    width: 600px;
-}
-.TrackingBtn{
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 10px;
-}
-.Panel02, .Panel03{
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin: 10px;
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-right: 20px;
-    justify-content: space-evenly;
+@import "./style.css";
 
+#tracking-form {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
-.image_track_box{
+
+.tracking-input {
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+  width: 600px;
+}
+
+.tracking-btn {
+  background-color: var(--color-blue);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.tracking-status {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid var(--color-gray);
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.track-box {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-/*   border: 2px solid #007bff; */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   margin-bottom: 10px;
-
 }
+
 .image_track{
   width: 120px;
   height: auto;
-  border-radius: 10px; /* optional: soft corners */
+  border-radius: 10px;
 
 }
-.LabelTrack{
+
+.track-label{
   margin-top: 10px;
   font-size: 16px;
   font-weight: 600;
   color: #333;
-  font-family: 'Segoe UI', sans-serif;
   text-align: center;
 }
-.Panel03{
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin: 10px;
-    border-radius: 5px;
-    justify-content: left;
-    align-items: left;
-    display: flex;
-    /* flex-direction: column; */
-    display: flex;
-    flex-direction: row;
-    /* align-items: lef; */
-    margin-right: 20px;
-    justify-content: left;
 
+#parcel-logs {
+  display: grid;
+  gap: 3rem;
+  width: 100%;
+  padding: 1.5rem;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-gray);
+  border-radius: 5px;
 }
-.tracking_info{
-  width: 40px;
-  height: auto;
-  border-radius: 10px; /* optional: soft corners */
-  justify-content: left;
-  /* background-color: #007bff; */
-}
-.processing {
+
+.parcel-logs {
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start; /* aligns items to the left */
-  align-items: center;         /* vertically centers items */
-  flex-wrap: nowrap;           /* prevents wrapping to next line */
-  color: orange;
-  font-weight: bold;
-  gap: 20px;                   /* optional: spacing between items */
+  gap: 1rem;
 }
-.Panel02,
-.Panel03 {
+
+#log {
+  background-color: var(--color-blue);
+  height: fit-content;
+  border-radius: 100%;
+  color: white;
+  font-size: 2rem;
+  padding: 0.5rem;
+}
+
+.log-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.log-info > .info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tracking-status,
+#parcel-logs {
   display: none;
 }

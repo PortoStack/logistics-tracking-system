@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/Public/css/employee-style.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add</title>
+</head>
+
+<body>
+
+  <header>
+    <h1 id="emp-name"></h1>
+    <div>
+      <button id="logout">LOGOUT</button>
+    </div>
+  </header>
+
+  <div>
+
+    <div class="panel tab">
+      <a href="/Views/employee/parcel.html">Parcel</a>
+      <a class="active" href="/Views/employee/add.html">Add</a>
+    </div>
+
+    <div class="panel">
+      <form class="form-panel" id="form-panel">
+        <!-- Sender -->
+        <div class="sender-form">
+          <!-- Check sender phone -->
+
+          <h1>Sender information</h1>
+
+          <div class="check-sender">
+            <input type="text" id="sender-input" placeholder="Enter sender phone" autocomplete="off" />
+            <button type="button" class="search-sender">Search</button>
+          </div>
+
+          <!-- Sender details -->
+          <div class="sender-detail">
+            <!-- Sender information -->
+            <div class="sender-info">
+              <label>Name:</label>
+              <input type="text" id="sender-name" />
+              <label>Email:</label>
+              <input type="text" id="sender-email" />
+              <label>Phone:</label>
+              <input type="text" id="sender-phone" />
+            </div>
+
+            <!-- Sender address -->
+            <!-- Address input (if customer not has address) -->
+            <div>
+              <label>Name:</label>
+              <input type="text" id="sender-address-name" />
+              <label>Address:</label>
+              <input type="text" id="sender-address" />
+              <label>Type:</label>
+              <select id="sender-address-type">
+                <option value="house">Home</option>
+                <option value="office">Office</option>
+                <option value="warehouse">Warehouse</option>
+                <option value="pickup_point">Pickup Point</option>
+              </select>
+            </div>
+
+            <!-- Address list -->
+            <table class="sender-loc-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Contact</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody id="sender-loc-list">
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+
+        <!-- Receiver -->
+        <div class="receiver-form">
+          <!-- Check receiver phone -->
+
+          <h1>Receiver information</h1>
+
+          <div class="check-receiver">
+            <input type="text" id="receiver-input" placeholder="Enter receiver phone" autocomplete="off" />
+            <button type="button" class="search-receiver">Search</button>
+          </div>
+
+          <!-- Receiver details -->
+          <div class="receiver-detail">
+            <!-- Receiver information -->
+            <div class="receiver-info">
+              <label>Name:</label>
+              <input type="text" id="receiver-name" />
+              <label>Email:</label>
+              <input type="text" id="receiver-email" />
+              <label>Phone:</label>
+              <input type="text" id="receiver-phone" />
+            </div>
+
+            <!-- Receiver address -->
+            <!-- Address input (if customer not has address) -->
+            <div>
+              <label>Name:</label>
+              <input type="text" id="receiver-address-name" />
+              <label>Address:</label>
+              <input type="text" id="receiver-address" />
+              <label>Type:</label>
+              <select id="receiver-address-type">
+                <option value="house">Home</option>
+                <option value="office">Office</option>
+                <option value="warehouse">Warehouse</option>
+                <option value="pickup_point">Pickup Point</option>
+              </select>
+            </div>
+
+            <!-- Address list -->
+            <table class="receiver-loc-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody id="receiver-loc-list">
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+
+        <!-- Parcel information -->
+        <div class="parcel-form">
+          <label>Type:</label>
+          <select id="parcel-type">
+            <option value="standard">Standard</option>
+            <option value="ems">EMS</option>
+          </select>
+          <label>Weight:</label>
+          <input type="text" id="parcel-weight" />
+        </div>
+
+        <button id="submit-parcel">Save Parcel</button>
+      </form>
+    </div>
+
+  </div>
+
+  <script type="module" src="/Public/js/employee-script.js"></script>
+</body>
+
+</html>

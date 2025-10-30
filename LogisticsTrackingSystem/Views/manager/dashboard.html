@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/Public/css/dashboard-style.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NU Express | Dashboard</title>
+</head>
+
+<body>
+  <div class="PageLayOut">
+    <div class="SectionOne">
+      <!-- Navbar -->
+      <nav class="Navbar-container">
+        <div class="Navbar-FLuid">
+          <h1 class="Navbar-Logo">NU EXPRESS</h1>
+          <ul class="Nav-Menu">
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/dashboard.html">Dash Board</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/parcel.html">Parcels</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/vehicle.html">Vehicles</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/employee.html">Employees</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/customer.html">Customers</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/location.html">Locations</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/route.html">Routes</a></li>
+          </ul>
+          <ul class="Nav-Menu">
+            <li class="nav-item"><a class="Redirect" id="logout">LOG OUT</a></li>
+        </div>
+      </nav>
+
+    </div>
+    <div class="SectionTwo">
+      <div class="Horizontal-Nav">
+        <span style="font-size: 2.5rem; font-weight: 900;" class="material-symbols-outlined">
+          dashboard
+        </span>
+        <div class="DashBoard">
+          <h1>DASHBOARD</h1>
+        </div>
+      </div>
+      <div class="UpperSection" id="parcel-stat">
+
+      </div>
+      <div class="LowerSection">
+        <div class="TEXT">
+          <h2>RECENT PARCEL LOGS</h2>
+        </div>
+        <div class="parcel-log-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Timestamp</th>
+                <th>Status</th>
+                <th>Note</th>
+                <th>Handled By</th>
+              </tr>
+            </thead>
+            <tbody id="parcel-logs">
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="/Public/js/dashboard-script.js"></script>
+</body>
+
+</html>

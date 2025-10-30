@@ -56,7 +56,7 @@
       <Column Name="parcel_id" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="employee_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="location_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="route_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="route_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="employee_parcel_log" Member="employee" ThisKey="employee_id" OtherKey="id" Type="employee" IsForeignKey="true" />
       <Association Name="location_parcel_log" Member="location" ThisKey="location_id" OtherKey="id" Type="location" IsForeignKey="true" />
       <Association Name="parcel_parcel_log" Member="parcel" ThisKey="parcel_id" OtherKey="id" Type="parcel" IsForeignKey="true" />
