@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/Public/css/route-style.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NU Express | Routes</title>
+</head>
+
+<body>
+  <div class="PageLayOut">
+    <div class="SectionOne">
+      <!-- Navbar -->
+      <nav class="Navbar-container">
+        <div class="Navbar-FLuid">
+          <h1 class="Navbar-Logo">NU EXPRESS</h1>
+          <ul class="Nav-Menu">
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/dashboard.html">Dash Board</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/parcel.html">Parcels</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/vehicle.html">Vehicles</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/employee.html">Employees</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/customer.html">Customers</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/location.html">Locations</a></li>
+            <li class="nav-item"><a class="Redirect" href="/Views/manager/route.html">Routes</a></li>
+          </ul>
+          <ul class="Nav-Menu">
+            <li class="nav-item"><a class="Redirect" id="logout">LOG OUT</a></li>
+        </div>
+      </nav>
+
+    </div>
+    <div class="SectionTwo">
+      <div class="Horizontal-Nav">
+        <span style="font-size: 2.5rem; font-weight: 900;" class="material-symbols-outlined">
+          route
+        </span>
+        <div class="DashBoard">
+          <h1>Routes</h1>
+        </div>
+      </div>
+      <div class="UpperSection">
+
+        <div class="route-form">
+          <form id="route-form">
+
+            <label>Vehicles:</label>
+            <select id="vehicle">
+
+            </select>
+
+            <label>Distance:</label>
+            <input type="number" id="distance" required>
+
+            <label>Estimated Time:</label>
+            <input type="number" id="estimated-time" required>
+
+            <label>Origin</label>
+            <select id="origin">
+
+            </select>
+
+            <label>Destination</label>
+            <select id="destination">
+
+            </select>
+
+            <button id="save-btn">Save Route</button>
+          </form>
+        </div>
+
+        <div class="Search-Box-Container">
+          <div class="Search-Box">
+            <span style="font-weight: 700;" class="material-symbols-outlined">
+              search
+            </span>
+            <input class="Search-Bar" type="text" id="route-search">
+          </div>
+          <div class="switch-btn">
+            <button id="switch-btn">Add</button>
+          </div>
+        </div>
+
+        <div class="route-table">
+          <table>
+            <thead>
+              <tr>
+                <th>License Plate</th>
+                <th>Capacity</th>
+                <th>Distance</th>
+                <th>Estimated Time</th>
+                <th>Status</th>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="routes">
+
+            </tbody>
+          </table>
+        </div>
+
+        <div id="popupModal">
+          <form class="modalContent" id="parcel-route-form">
+            <table class="parcel-route-table">
+              <thead>
+                <tr>
+                  <th>Sequence</th>
+                  <th>Origin</th>
+                  <th>Destination</th>
+                  <th>Vehicle</th>
+                </tr>
+              </thead>
+              <tbody class="parcel-route-list">
+
+              </tbody>
+            </table>
+
+            <select id="route-options">
+
+            </select>
+
+            <div class="buttonRow">
+              <button type="button" id="close-btn">Cancel</button>
+              <button class="save-btn" id="assign-route">Save Changes</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="Search-Box-Container">
+          <div class="Search-Box">
+            <span style="font-weight: 700;" class="material-symbols-outlined">
+              search
+            </span>
+            <input class="Search-Bar" type="text" id="parcel-search">
+          </div>
+        </div>
+
+        <div class="parcel-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Status</th>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="parcels">
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/Public/js/route-script.js"></script>
+</body>
+
+</html>

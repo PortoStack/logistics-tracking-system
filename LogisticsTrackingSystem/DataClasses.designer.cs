@@ -1142,7 +1142,7 @@ namespace LogisticsTrackingSystem
 		
 		private System.Nullable<int> _location_id;
 		
-		private int _route_id;
+		private System.Nullable<int> _route_id;
 		
 		private EntityRef<employee> _employee;
 		
@@ -1170,7 +1170,7 @@ namespace LogisticsTrackingSystem
     partial void Onemployee_idChanged();
     partial void Onlocation_idChanging(System.Nullable<int> value);
     partial void Onlocation_idChanged();
-    partial void Onroute_idChanging(int value);
+    partial void Onroute_idChanging(System.Nullable<int> value);
     partial void Onroute_idChanged();
     #endregion
 		
@@ -1335,8 +1335,8 @@ namespace LogisticsTrackingSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_route_id", DbType="Int NOT NULL")]
-		public int route_id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_route_id", DbType="Int")]
+		public System.Nullable<int> route_id
 		{
 			get
 			{
@@ -1488,7 +1488,7 @@ namespace LogisticsTrackingSystem
 					}
 					else
 					{
-						this._route_id = default(int);
+						this._route_id = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("route");
 				}

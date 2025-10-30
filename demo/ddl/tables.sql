@@ -133,7 +133,7 @@ CREATE TABLE parcel_logs (
   parcel_id VARCHAR(20) NOT NULL,
   employee_id INT NULL,
   location_id INT NULL,
-  route_id INT NOT NULL,
+  route_id INT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (parcel_id) REFERENCES parcels (id),
   FOREIGN KEY (employee_id) REFERENCES employees (id),

@@ -23,10 +23,10 @@ VALUES
   ('Bangkok Warehouse', 'Mr. Somchai', '12 Sukhumvit Rd, Bangkok', 'warehouse'),
   ('Chiang Mai Hub', 'Ms. Waranya', '88 Chang Phueak Rd, Chiang Mai', 'warehouse'),
   ('Phuket Delivery Center', 'Mr. Tavee', '77 Patong Rd, Phuket', 'pickup_point'),
-  ('Origin John', 'John Sender', '10 Moo 5, Sukhothai', 'house'),
-  ('Destination Mary', 'Mary Receiver', '22 Sathorn Rd, Bangkok', 'house'),
-  ('Origin Alice', 'Alice Walker', '55 Nimman Rd, Chiang Mai', 'house'),
-  ('Destination Lucy', 'Lucy Brown', '44 Beach Rd, Phuket', 'house');
+  ('Origin John', '0810000001', '10 Moo 5, Sukhothai', 'house'),
+  ('Destination Mary', '0810000002', '22 Sathorn Rd, Bangkok', 'house'),
+  ('Origin Alice', '0810000003', '55 Nimman Rd, Chiang Mai', 'house'),
+  ('Destination Lucy', '0810000006', '44 Beach Rd, Phuket', 'house');
 
 -- Vehicles
 INSERT INTO vehicles (capacity, license_plate, status, driver_id)

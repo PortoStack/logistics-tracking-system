@@ -11,37 +11,44 @@ signUpForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 
   try {
-    
-    const username = usernameElement.value;
-    const email = emailElement.value;
-    const phone = phoneElement.value;
+    const username = usernameElement.value.trim();
+    const email = emailElement.value.trim();
+    const phone = phoneElement.value.trim();
     const password = passwordElement.value;
     const confirmPassword = confirmPasswordElement.value;
 
-    const matchPassword = password === confirmPassword;
-
-    if (!matchPassword) {
-      return "Password is not match";
+    if (!username || !email || !phone || !password) {
+      alert("Please fill in all fields.");
+      return;
     }
 
-    const res = await fetch("/Service/DbService.svc/signup", {
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    const res = await fetch("/Services/DbService.svc/signup", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         name: username,
-        email: email,
         phone: phone,
+        email: email,
         password: password,
       }),
     });
 
-    const message = await res.json();
-
     if (!res.ok) {
-      return message;
+      alert("Sign up failed!");
+      return;
     }
 
-    return message;
+    alert("Sign up successful!");
+    signUpForm.reset();
   } catch (err) {
-    return err.message;
+    console.error(err);
+    alert("Error: " + err.message);
   }
 });

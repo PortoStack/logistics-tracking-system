@@ -106,20 +106,56 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\loadParcel.js" />
-    <Content Include="Public\css\admin-style.css" />
+    <Content Include="Public\css\customer-style.css" />
+    <Content Include="Public\css\dashboard-style.css" />
+    <Content Include="Public\css\driver-style.css" />
+    <Content Include="Public\css\employed-style.css" />
+    <Content Include="Public\css\employee-style.css" />
+    <Content Include="Public\css\location-style.css" />
+    <Content Include="Public\css\parcel-style.css" />
+    <Content Include="Public\css\route-style.css" />
+    <Content Include="Public\css\signin-style.css" />
+    <Content Include="Public\css\signup-style.css" />
+    <Content Include="Public\css\style.css" />
+    <Content Include="Public\css\vehicle-style.css" />
+    <Content Include="Public\js\action.js" />
+    <Content Include="Public\js\customer-script.js" />
+    <Content Include="Public\js\dashboard-script.js" />
+    <Content Include="Public\js\driver-script.js" />
+    <Content Include="Public\js\employed-script.js" />
+    <Content Include="Public\js\employee-script.js" />
+    <Content Include="Public\js\location-script.js" />
+    <Content Include="Public\js\parcel-script.js" />
+    <Content Include="Public\js\route-script.js" />
+    <Content Include="Public\js\signin-script.js" />
+    <Content Include="Public\js\signup-script.js" />
+    <Content Include="Public\js\status.js" />
+    <Content Include="Public\js\tracking-script.js" />
+    <Content Include="Public\js\type.js" />
+    <Content Include="Public\js\vehicle-script.js" />
+    <Content Include="Scripts\customer.service.js" />
+    <Content Include="Scripts\employee.service.js" />
+    <Content Include="Scripts\location.service.js" />
+    <Content Include="Scripts\parcel-log.service.js" />
+    <Content Include="Scripts\parcel-route.service.js" />
+    <Content Include="Scripts\parcel.service.js" />
+    <Content Include="Scripts\route.service.js" />
+    <Content Include="Scripts\vehicle.service.js" />
     <Content Include="Services\DbService.svc" />
-    <Content Include="Public\assets\Logo01_Box.png" />
-    <Content Include="Public\assets\Logo02_Van.png" />
-    <Content Include="Public\assets\Logo03_Check.png" />
-    <Content Include="Public\assets\Report_icon_01.png" />
-    <Content Include="Public\assets\Report_icon_02.png" />
     <Content Include="Public\css\tracking-style.css" />
-    <Content Include="Views\admin\dashboard.html" />
-    <Content Include="Views\parcel\add.html" />
-    <Content Include="Views\parcel\index.html" />
+    <Content Include="Views\driver\tracking.html" />
+    <Content Include="Views\employee\add.html" />
+    <Content Include="Views\employee\parcel.html" />
+    <Content Include="Views\manager\customer.html" />
+    <Content Include="Views\manager\dashboard.html" />
+    <Content Include="Views\manager\employee.html" />
+    <Content Include="Views\manager\location.html" />
+    <Content Include="Views\manager\parcel.html" />
+    <Content Include="Views\manager\route.html" />
+    <Content Include="Views\manager\vehicle.html" />
+    <Content Include="Views\sign-in.html" />
+    <Content Include="Views\sign-up.html" />
     <Content Include="Views\tracking.html" />
-    <Content Include="Scripts\tracking-script.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +169,7 @@
     <Compile Include="Models\ParcelModel.cs" />
     <Compile Include="Models\ParcelRouteModel.cs" />
     <Compile Include="Models\RouteModel.cs" />
+    <Compile Include="Models\StatModel.cs" />
     <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\IDbService.cs" />
@@ -146,7 +183,10 @@
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\ParcelLogService.cs" />
+    <Compile Include="Services\ParcelRouteService.cs" />
     <Compile Include="Services\ParcelService.cs" />
+    <Compile Include="Services\RouteService.cs" />
+    <Compile Include="Services\VehicleService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataClasses.dbml">
