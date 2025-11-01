@@ -46,6 +46,7 @@ async function renderParcelTable() {
                     data-id="${p.parcel_id}"
                     data-route="${p.route_id}"
                     data-location="${p.route.destination_id}"
+                    data-status="failed"
                   >
                     Cancel
                   </button>
@@ -85,8 +86,9 @@ async function renderParcelTable() {
     btn.addEventListener("click", (e) => {
       const parcelId = e.currentTarget.dataset.id;
       const routeId = e.currentTarget.dataset.route;
+      const status = e.currentTarget.dataset.status;
       const locationId = e.currentTarget.dataset.location;
-      handleCancelParcel(parcelId, routeId, locationId);
+      handleInsertLog(parcelId, routeId, status, locationId);
     });
   });
 }
@@ -96,7 +98,7 @@ document
   .getElementById("search-parcel")
   .addEventListener("input", renderParcelTable);
 
-async function handleInsertLog(parcelId, routeId, status, locationId, driverId) {
+async function handleInsertLog(parcelId, routeId, status, locationId) {
   const confirmMsg = {
     arrived_warehouse: "ยืนยันว่าพัสดุถึงคลังแล้ว?",
     delivered: "ยืนยันส่งสำเร็จหรือไม่?",
