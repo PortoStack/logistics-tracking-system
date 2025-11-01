@@ -74,6 +74,19 @@ async function handleDeleteRoute(id) {
   }
 }
 
+function formatEstimatedTime(minutes) {
+  const hrs = Math.floor(minutes / 60);
+  const mins = Math.round(minutes % 60);
+
+  if (hrs > 0 && mins > 0) {
+    return `${hrs}hr ${mins}min`;
+  } else if (hrs > 0) {
+    return `${hrs}hr`;
+  } else {
+    return `${mins}min`;
+  }
+}
+
 async function renderRouteTable() {
   const routes = await getRoutes();
 
@@ -97,11 +110,7 @@ async function renderRouteTable() {
         <td>${r.vehicle.license_plate}</td>
         <td>${r.vehicle.capacity}</td>
         <td>${r.distance / 1000 + "km"}</td>
-        <td>${
-          r.estimated_time < 60
-            ? r.estimated_time + "m"
-            : r.estimated_time / 60 + "hr"
-        }</td>
+        <td>${formatEstimatedTime(r.estimated_time)}</td>
         <td>${routeStatusStyle(r.status)}</td>
         <td>${r.origin.address}</td>
         <td>${r.destination.address}</td>
@@ -166,7 +175,7 @@ document.getElementById("save-btn").addEventListener("click", async (event) => {
       },
     };
     const data = await updateRoute(payload);
-    alert(data.message);
+    // alert(data.message);
   } else {
     const payload = {
       input: {
@@ -185,6 +194,7 @@ document.getElementById("save-btn").addEventListener("click", async (event) => {
   editingId = null;
   routeForm.classList.toggle("active");
   renderRouteTable();
+  renderRouteOptions();
 });
 
 // Add Parcel Route Assignment
@@ -302,4 +312,5 @@ document
 
     popup.style.display = "none";
     renderParcelTable();
+    renderRouteTable();
   });

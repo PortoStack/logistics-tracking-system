@@ -6,3 +6,8 @@ FROM employees;
 SELECT id, name, email, password, phone, role
 FROM employees
 WHERE id = 1;
+
+-- Select employee by role
+SELECT id, name, email, password, phone, role
+FROM employees
+WHERE role = 'employee';

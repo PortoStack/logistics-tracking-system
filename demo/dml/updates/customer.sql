@@ -9,8 +9,7 @@ DECLARE @CustomerId INT = 1;
   UPDATE customers
   SET
     name = 'Test Sql',
-    email = 'test@example.com',
-    phone = '0987654321'
+    email = 'test@example.com'
   WHERE id = @CustomerId;
 
   -- Select customer after update

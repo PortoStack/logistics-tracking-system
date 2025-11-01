@@ -52,7 +52,7 @@ BEGIN TRAN
 
   -- Insert parcel
   INSERT INTO parcels (id, weight, type, status, sender_id, receiver_id, origin_id, destination_id)
-  VALUES (@ParcelId, 2.5, 'standard', 'pending', @SenderId, @ReceiverId, @OriginId, @DestinationId);
+  VALUES (@ParcelId, 2.5, 'ems', 'pending', @SenderId, @ReceiverId, @OriginId, @DestinationId);
 
   -- Select parcel after insert
   SELECT 
